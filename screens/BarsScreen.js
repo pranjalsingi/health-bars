@@ -1,8 +1,8 @@
-import React from 'react';
-import { ScrollView, StyleSheet, View, Text } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import React, { Component } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { Constants } from 'expo';
 
-export default class LinksScreen extends React.Component {
+export default class BarsScreen extends React.Component {
   static navigationOptions = {
     title: 'Bars',
   };
