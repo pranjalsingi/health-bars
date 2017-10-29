@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+  Alert,
+  Button,
   Image,
   Platform,
   ScrollView,
@@ -8,6 +10,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import { Constants } from 'expo';
+import { Card } from 'react-native-elements'; // 0.17.0
+
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
@@ -19,25 +25,37 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={require('../assets/images/Goldeneye.png')              }
-              style={styles.welcomeImage}
-            />
-          </View>
+      <View style = {styles.home}>
+        <View style={styles.getStartedContainer}>
+          {this._maybeRenderDevelopmentModeWarning()}
+        </View>
+        <Card style={styles.metricButtons}>
+          <Button
+            title="I ate"
+            onPress={this._handleButtonPress}
+            color="#FFBA00"
+          />
 
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
+          <Button
+            title="I slept"
+            onPress={this._handleButtonPress}
+            color="#002FA7"
+          />
 
-            <Text style={styles.getStartedText}>Home page goes here</Text>
-          </View>
-
-          
-        </ScrollView>
+          <Button
+            title="I drank"
+            onPress={this._handleButtonPress}
+            color="#C19A6B"
+          />
+        </Card>
+        <View style={styles.metricBars}>
+          <Text> Eating Bar  </Text>
+          <View style={styles.eatStatusBar} />
+          <Text> Sleep Bar </Text>
+          <View style={styles.sleepStatusBar} />
+          <Text> Water Bar </Text>
+          <View style={styles.drinkStatusBar} />
+        </View>
       </View>
     );
   }
@@ -75,34 +93,23 @@ export default class HomeScreen extends React.Component {
       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
     );
   };
+
+  //placeholder action
+  _handleButtonPress = () => {
+    Alert.alert(
+      'Button pressed!',
+      'You did it!',
+    );
+  };
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
     textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
   },
   getStartedContainer: {
     alignItems: 'center',
@@ -118,12 +125,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.05)',
     borderRadius: 3,
     paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
   },
   tabBarInfoContainer: {
     position: 'absolute',
@@ -163,5 +164,37 @@ const styles = StyleSheet.create({
   helpLinkText: {
     fontSize: 14,
     color: '#2e78b7',
+  },
+
+  home: {
+    justifyContent: 'center',
+    paddingLeft:Constants.statusBarHeight,
+    paddingRight: Constants.statusBarHeight,
+    paddingTop: Constants.statusBarHeight * 3,
+  },
+  metricButtons: {
+    flexDirection: 'row',
+    justifyContent:'space-around',
+  },
+  eatStatusBar: {
+    //eat status color should be : selective yellow
+    backgroundColor: "#FFBA00",
+    height: Constants.statusBarHeight,
+    width: Constants.statusBarWidth,
+    marginBottom: Constants.statusBarHeight,
+  },
+   sleepStatusBar: {
+    //sleep status color should be International Klein Blue
+    backgroundColor: "#002FA7",
+    height: Constants.statusBarHeight,
+    marginBottom: Constants.statusBarHeight,
+    width: Constants.statusBarWidth,
+  },
+   drinkStatusBar: {
+    //drink status color is desert
+    backgroundColor: "#C19A6B",
+    height: Constants.statusBarHeight,
+    marginBottom: Constants.statusBarHeight,
+    width: Constants.statusBarWidth,
   },
 });
