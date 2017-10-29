@@ -49,13 +49,15 @@ export default class HomeScreen extends React.Component {
   render() {
    	var showDatePicker = this.state.showDatePicker ?
 		(Platform.OS === 'android') ? 
-			<Text> placeholder </Text>
+			//let action = TimePickerAndroid.open({this.state.date});
+			//if (action !== TimePickerAndroid.dismissedAction) {
+			//	this.setState({date});
+			<Text> "placeholder" </Text>
 		: (Platform.OS === 'ios') ?
 				<DatePickerIOS
 				style = {{ height : 150 }}
 				date = {this.state.date}
-				onChange = {(date) => this.setState({date})}
-				onDateChange = {this._handleButtonPress} 
+				onDateChange = {(date) => this.setState({date})} 
 				mode = 'time' />
 			: <View />
 	: <View />
