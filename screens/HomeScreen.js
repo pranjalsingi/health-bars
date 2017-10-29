@@ -29,25 +29,29 @@ export default class HomeScreen extends React.Component {
         <View style={styles.getStartedContainer}>
           {this._maybeRenderDevelopmentModeWarning()}
         </View>
-        <Card style={styles.metricButtons}>
-          <Button
-            title="I ate"
-            onPress={this._handleButtonPress}
-            color="#FFBA00"
-          />
-
-          <Button
-            title="I slept"
-            onPress={this._handleButtonPress}
-            color="#002FA7"
-          />
-
-          <Button
-            title="I drank"
-            onPress={this._handleButtonPress}
-            color="#C19A6B"
-          />
-        </Card>
+        <View style={styles.metricButtons}>
+			<View style={styles.button}>
+			  <Button
+				title=" I ate "
+				onPress={this._handleButtonPress}
+				color="#FFFFFF"
+			  />
+			</View>
+			<View style={styles.button}>
+			  <Button
+				title=" I slept "
+				onPress={this._handleButtonPress}
+				color="#FFFFFF"
+			  />
+			</View>
+			<View style={styles.button}>
+			  <Button
+				title=" I drank "
+				onPress={this._handleButtonPress}
+				color="#FFFFFF"
+			  />
+			</View>
+		</View>
         <View style={styles.metricBars}>
           <Text> Eating Bar  </Text>
           <View style={styles.eatStatusBar} />
@@ -172,28 +176,33 @@ const styles = StyleSheet.create({
     paddingRight: Constants.statusBarHeight,
     paddingTop: Constants.statusBarHeight * 3,
   },
+  button: {
+	marginBottom: Constants.statusBarHeight,
+	backgroundColor: "#F4610A",
+  },
   metricButtons: {
+	marginTop:Constants.statusBarHeight,
     flexDirection: 'row',
     justifyContent:'space-around',
   },
   eatStatusBar: {
     //eat status color should be : selective yellow
     backgroundColor: "#FFBA00",
-    height: Constants.statusBarHeight,
+    height: Constants.statusBarHeight * 2,
     width: Constants.statusBarWidth,
     marginBottom: Constants.statusBarHeight,
   },
    sleepStatusBar: {
     //sleep status color should be International Klein Blue
     backgroundColor: "#002FA7",
-    height: Constants.statusBarHeight,
+    height: Constants.statusBarHeight * 2,
     marginBottom: Constants.statusBarHeight,
     width: Constants.statusBarWidth,
   },
    drinkStatusBar: {
     //drink status color is desert
     backgroundColor: "#C19A6B",
-    height: Constants.statusBarHeight,
+    height: Constants.statusBarHeight * 2,
     marginBottom: Constants.statusBarHeight,
     width: Constants.statusBarWidth,
   },
