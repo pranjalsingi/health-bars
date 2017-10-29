@@ -146,22 +146,26 @@ export default class HomeScreen extends React.Component {
 
   //placeholder action
   _handleButtonPress = (val) => {
-    console.log(val);
+	console.log(this.state.date); 
+	console.log(val);
     if(val === "eat"){
       if(this.state.eatWidth <= 250) {
-        this.setState({eatWidth: this.state.eatWidth + 50});
+ 		this.setState({showDatePicker: !this.showDatePicker});
+        this.setState({eatWidth: this.state.eatWidth + this.state.date});
       }
     }
     else if(val === "sleep") {
       if(this.state.sleepWidth <= 250) {
-      this.setState({sleepWidth: this.state.sleepWidth + 50});
+	 	this.setState({showDatePicker: !this.showDatePicker});
+      	this.setState({sleepWidth: this.state.sleepWidth + 50});
       }
     }
     else{
       if(this.state.drinkWidth <= 250) {
-      this.setState({drinkWidth: this.state.drinkWidth + 50});
+ 		this.setState({showDatePicker: !this.showDatePicker});
+    	this.setState({drinkWidth: this.state.drinkWidth + 50});
       }
-    }
+    }	
   };
 }
 
