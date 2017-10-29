@@ -104,10 +104,11 @@ export default class HomeScreen extends React.Component {
       );
       // const { eatWidth } = this.state.eatWidth;
       // const { sleepWidth } = this.state.sleepWidth;
-      const { drinkWidth } = this.state.drinkWidth;
+      // const { drinkWidth } = this.state.drinkWidth;
+
       return (
         <Text style={styles.developmentModeText}>
-          Development mode is enabled { drinkWidth }.
+          Development mode is enabled.
         </Text>
       );
     } else {
@@ -134,18 +135,20 @@ export default class HomeScreen extends React.Component {
   //placeholder action
   _handleButtonPress = (val) => {
     console.log(val);
-    // Alert.alert(
-    //   'Button pressed!',
-    //   'You did it!',
-    // );
     if(val === "eat"){
-      this.setState({eatWidth: this.state.eatWidth + 50});
+      if(this.state.eatWidth <= 250) {
+        this.setState({eatWidth: this.state.eatWidth + 50});
+      }
     }
     else if(val === "sleep") {
+      if(this.state.sleepWidth <= 250) {
       this.setState({sleepWidth: this.state.sleepWidth + 50});
+      }
     }
     else{
+      if(this.state.drinkWidth <= 250) {
       this.setState({drinkWidth: this.state.drinkWidth + 50});
+      }
     }
   };
 }
