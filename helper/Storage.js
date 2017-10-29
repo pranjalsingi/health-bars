@@ -1,7 +1,7 @@
 import React from "react";
 import { AsyncStorage, Text, View, TextInput, Button } from "react-native";
 
-const setUp = () => {
+setUp = () => {
   obj = {
     sleep : 
     {
@@ -29,22 +29,21 @@ const setUp = () => {
   });
 }
 
-const addData = (parent, child, val) => {
+addData = (parent, child, val) => {
   AsyncStorage.getItem("@MySuperStore:key", (err, value) => {
     intermediate = JSON.parse(value);
     intermediate[parent][child].push(val);
     AsyncStorage.setItem("@MySuperStore:key", JSON.stringify(intermediate))
   });
 }
-
-const retrieveData = (parent, child) => {
+retrieveData = (parent, child) => {
   AsyncStorage.getItem("@MySuperStore:key", (err, value) => {
     intermediate = JSON.parse(value);
     return intermediate[parent][child];
   });
 }
 
-const deleteKey = () => {
+deleteKey = () => {
   AsyncStorage.removeItem("@MySuperStore:key", (err) => {
     if(err){
       console.log("Issues removing key")
@@ -54,9 +53,7 @@ const deleteKey = () => {
   });
 }
 
-export default setUp;
-export default addData;
-export default retrieveData;
+export default { setUp, addData, retrieveData, deleteKey };
 
 // export default class App extends React.Component {
   

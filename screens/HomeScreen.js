@@ -18,10 +18,28 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
+
 export default class HomeScreen extends React.Component {
+  constructor(){
+    super();
+    this.state = {drinkWidth:100}
+  }
+
   static navigationOptions = {
     header: null,
   };
+
+  // variableBar = StyleSheet.flatten([
+  //   {
+  //     backgroundColor: "#C19A6B",
+  //     height: Constants.statusBarHeight * 2,
+  //     marginBottom: Constants.statusBarHeight,
+  //   },
+  //   {
+  //     //drink status color is desert
+  //     width: this.state.drinkWidth
+  //   }
+  // ]);
 
   render() {
     return (
@@ -29,25 +47,25 @@ export default class HomeScreen extends React.Component {
         <View style={styles.getStartedContainer}>
           {this._maybeRenderDevelopmentModeWarning()}
         </View>
-        <View style={styles.metricButtons}>
+      <View style={styles.metricButtons}>
 			<View style={styles.button}>
 			  <Button
 				title=" I ate "
-				onPress={this._handleButtonPress}
+				onPress={() => this._handleButtonPress("+")}
 				color="#FFFFFF"
 			  />
 			</View>
 			<View style={styles.button}>
 			  <Button
 				title=" I slept "
-				onPress={this._handleButtonPress}
+				onPress={() => this._handleButtonPress("-")}
 				color="#FFFFFF"
 			  />
 			</View>
 			<View style={styles.button}>
 			  <Button
 				title=" I drank "
-				onPress={this._handleButtonPress}
+				onPress={() => this._handleButtonPress("-")}
 				color="#FFFFFF"
 			  />
 			</View>
@@ -58,8 +76,11 @@ export default class HomeScreen extends React.Component {
           <Text> Sleep Bar </Text>
           <View style={styles.sleepStatusBar} />
           <Text> Water Bar </Text>
-          <View style={styles.drinkStatusBar} />
-        </View>
+          <View style={{backgroundColor: "#C19A6B",
+                        height: Constants.statusBarHeight * 2,
+                        marginBottom: Constants.statusBarHeight,
+                        width: this.state.drinkWidth}} />
+          </View>
       </View>
     );
   }
@@ -71,10 +92,11 @@ export default class HomeScreen extends React.Component {
           Learn more
         </Text>
       );
+      const { drinkWidth } = this.state;
 
       return (
         <Text style={styles.developmentModeText}>
-          Development mode is enabled.
+          Development mode is enabled { drinkWidth }.
         </Text>
       );
     } else {
@@ -99,11 +121,18 @@ export default class HomeScreen extends React.Component {
   };
 
   //placeholder action
-  _handleButtonPress = () => {
-    Alert.alert(
-      'Button pressed!',
-      'You did it!',
-    );
+  _handleButtonPress = (val) => {
+    console.log(val);
+    // Alert.alert(
+    //   'Button pressed!',
+    //   'You did it!',
+    // );
+    if(val === "+"){
+      this.setState({drinkWidth: this.state.drinkWidth + 50});
+    }
+    else{
+      this.setState({drinkWidth: this.state.drinkWidth - 50});
+    }
   };
 }
 
