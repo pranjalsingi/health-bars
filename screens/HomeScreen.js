@@ -9,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  DatePickerIOS
 } from 'react-native';
 
 import { Constants } from 'expo';
@@ -23,8 +24,25 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
+  constructor(props) {
+  	super(props);
+  	this.state = {
+  		date: new Date(),
+  		showDatePicker : false
+  	}
+  }
+ // var lastEatTime = Date.now();
+ // var lastDrinkTime = Date.now();
+
   render() {
-    return (
+   	var showDatePicker = this.state.showDatePicker ? 
+		<DatePickerIOS
+			style = {{ height : 150 }}
+			date = {this.state.date}
+			onChange = {(date) => this.setState({date})}
+			onDateChange = {this._handleButtonPress}
+			mode = "time" /> : <View /> 
+   	return (
       <View style = {styles.home}>
         <View style={styles.getStartedContainer}>
           {this._maybeRenderDevelopmentModeWarning()}
@@ -33,7 +51,7 @@ export default class HomeScreen extends React.Component {
 			<View style={styles.button}>
 			  <Button
 				title=" I ate "
-				onPress={this._handleButtonPress}
+				onPress={() => this.setState({showDatePicker: !this.showDatePicker})}
 				color="#FFFFFF"
 			  />
 			</View>
@@ -52,6 +70,7 @@ export default class HomeScreen extends React.Component {
 			  />
 			</View>
 		</View>
+		{showDatePicker}
         <View style={styles.metricBars}>
           <Text> Eating Bar  </Text>
           <View style={styles.eatStatusBar} />
@@ -100,10 +119,8 @@ export default class HomeScreen extends React.Component {
 
   //placeholder action
   _handleButtonPress = () => {
-    Alert.alert(
-      'Button pressed!',
-      'You did it!',
-    );
+ 	console.log(Date.now());
+ 	
   };
 }
 
