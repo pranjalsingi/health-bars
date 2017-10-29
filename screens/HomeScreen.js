@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  DatePickerIOS
+  DatePickerIOS,
+  Platform
 } from 'react-native';
 
 import { Constants } from 'expo';
@@ -14,12 +15,14 @@ import { WebBrowser } from 'expo';
 
 
 export default class HomeScreen extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       eatWidth:100,
       sleepWidth:100,
       drinkWidth:100,
+	  date: new Date(),
+	  showDatePicker : false,
     }
   }
 
@@ -38,13 +41,6 @@ export default class HomeScreen extends React.Component {
   //     width: this.state.drinkWidth
   //   }
   // ]);
-  constructor(props) {
-  	super(props);
-  	this.state = {
-  		date: new Date(),
-  		showDatePicker : false
-  	}
-  }
 
   render() {
    	var showDatePicker = this.state.showDatePicker ?
@@ -151,7 +147,8 @@ export default class HomeScreen extends React.Component {
     if(val === "eat"){
       if(this.state.eatWidth <= 250) {
  		this.setState({showDatePicker: !this.showDatePicker});
-        this.setState({eatWidth: this.state.eatWidth + this.state.date});
+        this.setState({eatWidth: this.state.eatWidth + (this.state.date.getMilliseconds() / 10)});
+		console.log(this.state.date.getMilliseconds());
       }
     }
     else if(val === "sleep") {
