@@ -47,13 +47,19 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-   	var showDatePicker = this.state.showDatePicker ? 
-		<DatePickerIOS
-			style = {{ height : 150 }}
-			date = {this.state.date}
-			onChange = {(date) => this.setState({date})}
-			onDateChange = {this._handleButtonPress}
-			mode = "time" /> : <View /> 
+   	var showDatePicker = this.state.showDatePicker ?
+		(Platform.OS === 'android') ? 
+			<Text> placeholder </Text>
+		: (Platform.OS === 'ios') ?
+				<DatePickerIOS
+				style = {{ height : 150 }}
+				date = {this.state.date}
+				onChange = {(date) => this.setState({date})}
+				onDateChange = {this._handleButtonPress} 
+				mode = 'time' />
+			: <View />
+	: <View />
+ 
    	return (
       <View style = {styles.home}>
         <View style={styles.getStartedContainer}>
