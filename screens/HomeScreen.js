@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  DatePickerIOS
 } from 'react-native';
 
 import { Constants } from 'expo';
@@ -37,9 +38,23 @@ export default class HomeScreen extends React.Component {
   //     width: this.state.drinkWidth
   //   }
   // ]);
+  constructor(props) {
+  	super(props);
+  	this.state = {
+  		date: new Date(),
+  		showDatePicker : false
+  	}
+  }
 
   render() {
-    return (
+   	var showDatePicker = this.state.showDatePicker ? 
+		<DatePickerIOS
+			style = {{ height : 150 }}
+			date = {this.state.date}
+			onChange = {(date) => this.setState({date})}
+			onDateChange = {this._handleButtonPress}
+			mode = "time" /> : <View /> 
+   	return (
       <View style = {styles.home}>
         <View style={styles.getStartedContainer}>
           {this._maybeRenderDevelopmentModeWarning()}
@@ -67,6 +82,7 @@ export default class HomeScreen extends React.Component {
 			  />
 			</View>
 		</View>
+		{showDatePicker}
         <View style={styles.metricBars}>
           <Text> Eating Bar  </Text>
           <View style={{backgroundColor: "#FFBA00",
