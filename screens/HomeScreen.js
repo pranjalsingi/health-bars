@@ -4,6 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
+  DatePickerIOS,
+  Platform
 } from 'react-native';
 
 import { Constants } from 'expo';
@@ -13,12 +15,14 @@ import { WebBrowser } from 'expo';
 
 
 export default class HomeScreen extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       eatWidth:100,
       sleepWidth:100,
       drinkWidth:100,
+	  date: new Date(),
+	  showDatePicker : false,
     }
   }
 
@@ -39,7 +43,22 @@ export default class HomeScreen extends React.Component {
   // ]);
 
   render() {
-    return (
+   	var showDatePicker = this.state.showDatePicker ?
+		(Platform.OS === 'android') ? 
+			//let action = TimePickerAndroid.open({this.state.date});
+			//if (action !== TimePickerAndroid.dismissedAction) {
+			//	this.setState({date});
+			<Text> "placeholder" </Text>
+		: (Platform.OS === 'ios') ?
+				<DatePickerIOS
+				style = {{ height : 150 }}
+				date = {this.state.date}
+				onDateChange = {this._handleButtonPress} 
+				mode = 'time' />
+			: <View />
+	: <View />
+ 
+   	return (
       <View style = {styles.home}>
         <View style={styles.getStartedContainer}>
           {this._maybeRenderDevelopmentModeWarning()}
@@ -67,6 +86,7 @@ export default class HomeScreen extends React.Component {
 			  />
 			</View>
 		</View>
+		{showDatePicker}
         <View style={styles.metricBars}>
           <Text> Eating Bar  </Text>
           <View style={{backgroundColor: "#FFBA00",
@@ -122,22 +142,27 @@ export default class HomeScreen extends React.Component {
 
   //placeholder action
   _handleButtonPress = (val) => {
-    console.log(val);
+	console.log(this.state.date); 
+	console.log(val);
     if(val === "eat"){
       if(this.state.eatWidth <= 250) {
-        this.setState({eatWidth: this.state.eatWidth + 50});
+ 		this.setState({showDatePicker: !this.showDatePicker});
+        this.setState({eatWidth: this.state.eatWidth + (this.state.date.getMilliseconds() / 10)});
+		console.log(this.state.date.getMilliseconds());
       }
     }
     else if(val === "sleep") {
       if(this.state.sleepWidth <= 250) {
-      this.setState({sleepWidth: this.state.sleepWidth + 50});
+	 	this.setState({showDatePicker: !this.showDatePicker});
+      	this.setState({sleepWidth: this.state.sleepWidth + 50});
       }
     }
     else{
       if(this.state.drinkWidth <= 250) {
-      this.setState({drinkWidth: this.state.drinkWidth + 50});
+ 		this.setState({showDatePicker: !this.showDatePicker});
+    	this.setState({drinkWidth: this.state.drinkWidth + 50});
       }
-    }
+    }	
   };
 }
 
