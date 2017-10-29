@@ -53,7 +53,7 @@ export default class HomeScreen extends React.Component {
 				<DatePickerIOS
 				style = {{ height : 150 }}
 				date = {this.state.date}
-				onDateChange = {(date) => this.setState({date})} 
+				onDateChange = {this._handleButtonPress} 
 				mode = 'time' />
 			: <View />
 	: <View />
