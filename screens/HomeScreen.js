@@ -22,7 +22,11 @@ import { MonoText } from '../components/StyledText';
 export default class HomeScreen extends React.Component {
   constructor(){
     super();
-    this.state = {drinkWidth:100}
+    this.state = {
+      eatWidth:100,
+      sleepWidth:100,
+      drinkWidth:100,
+    }
   }
 
   static navigationOptions = {
@@ -51,30 +55,36 @@ export default class HomeScreen extends React.Component {
 			<View style={styles.button}>
 			  <Button
 				title=" I ate "
-				onPress={() => this._handleButtonPress("+")}
-				color="#FFFFFF"
+				onPress={() => this._handleButtonPress("eat")}
+				color="#000000"
 			  />
 			</View>
 			<View style={styles.button}>
 			  <Button
 				title=" I slept "
-				onPress={() => this._handleButtonPress("-")}
-				color="#FFFFFF"
+				onPress={() => this._handleButtonPress("sleep")}
+				color="#000000"
 			  />
 			</View>
 			<View style={styles.button}>
 			  <Button
 				title=" I drank "
-				onPress={() => this._handleButtonPress("-")}
-				color="#FFFFFF"
+				onPress={() => this._handleButtonPress("drink")}
+				color="#000000"
 			  />
 			</View>
 		</View>
         <View style={styles.metricBars}>
           <Text> Eating Bar  </Text>
-          <View style={styles.eatStatusBar} />
+          <View style={{backgroundColor: "#FFBA00",
+                        height: Constants.statusBarHeight * 2,
+                        marginBottom: Constants.statusBarHeight,
+                        width: this.state.eatWidth}} />
           <Text> Sleep Bar </Text>
-          <View style={styles.sleepStatusBar} />
+          <View style= {{backgroundColor: "#002FA7",
+                        height: Constants.statusBarHeight * 2,
+                        marginBottom: Constants.statusBarHeight,
+                        width: this.state.sleepWidth}}/>
           <Text> Water Bar </Text>
           <View style={{backgroundColor: "#C19A6B",
                         height: Constants.statusBarHeight * 2,
@@ -92,8 +102,9 @@ export default class HomeScreen extends React.Component {
           Learn more
         </Text>
       );
-      const { drinkWidth } = this.state;
-
+      // const { eatWidth } = this.state.eatWidth;
+      // const { sleepWidth } = this.state.sleepWidth;
+      const { drinkWidth } = this.state.drinkWidth;
       return (
         <Text style={styles.developmentModeText}>
           Development mode is enabled { drinkWidth }.
@@ -127,11 +138,14 @@ export default class HomeScreen extends React.Component {
     //   'Button pressed!',
     //   'You did it!',
     // );
-    if(val === "+"){
-      this.setState({drinkWidth: this.state.drinkWidth + 50});
+    if(val === "eat"){
+      this.setState({eatWidth: this.state.eatWidth + 50});
+    }
+    else if(val === "sleep") {
+      this.setState({sleepWidth: this.state.sleepWidth + 50});
     }
     else{
-      this.setState({drinkWidth: this.state.drinkWidth - 50});
+      this.setState({drinkWidth: this.state.drinkWidth + 50});
     }
   };
 }
